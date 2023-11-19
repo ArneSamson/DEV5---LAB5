@@ -23,23 +23,24 @@
     let message = ref("");
 
     let allMessages = reactive({
-        data: {
-                user:{
-                    name: "user1",
-                    text: "Hello"
-                    },
-                user2:{
-                    name: "user2",
-                    text: "Hi"
-                    },
-            },
+        data: [],
     });
 
     function sendMessage() {
-        
+        fetch('https://dev5-lab4.onrender.com/api/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message:{
+                    user: 'tiktokuser',
+                    text: message.value,
+                }
+            })
+        })
     }
 
-    //get messages from https://dev5-lab4.onrender.com/api/v1/messages and add the user and the text to allMessages
     onMounted(() => {
         fetch('https://dev5-lab4.onrender.com/api/v1/messages')
         .then(response => response.json())
