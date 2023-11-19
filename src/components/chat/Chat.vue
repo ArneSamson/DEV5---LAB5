@@ -28,6 +28,10 @@
         data: [],
     });
 
+    function reverseMessages(){
+        allMessages.data.reverse();
+    }
+
     function sendMessage() {
         fetch('https://dev5-lab4.onrender.com/api/v1/messages', {
             method: 'POST',
@@ -49,6 +53,7 @@
         .catch((error) => {
             console.error('Error:', error);
         })
+        
     }
 
     function fetchData(){
@@ -57,6 +62,7 @@
         .then(data => {
             allMessages.data = data.data[0].messages;
             console.log(allMessages.data);
+            reverseMessages();
         })
         .catch(error => {
             console.error(error);
