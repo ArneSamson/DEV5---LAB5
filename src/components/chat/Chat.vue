@@ -38,10 +38,18 @@
                     text: message.value,
                 }
             })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                fetchData();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
         })
     }
 
-    onMounted(() => {
+    function fetchData(){
         fetch('https://dev5-lab4.onrender.com/api/v1/messages')
         .then(response => response.json())
         .then(data => {
@@ -51,6 +59,10 @@
         .catch(error => {
             console.error(error);
         })
+    }
+
+    onMounted(() => {
+        fetchData();
 
     });
 
