@@ -22,6 +22,8 @@
 <script setup>
     import { ref, reactive, onMounted} from 'vue';
 
+    let user = ref("tiktokuser");
+
     let message = ref("");
 
     let allMessages = reactive({
@@ -40,7 +42,7 @@
             },
             body: JSON.stringify({
                 message:{
-                    user: 'tiktokuser',
+                    user: user.value,
                     text: message.value,
                 },
             }),
@@ -48,7 +50,7 @@
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            fetchData();
+            allMessages.data.unshift(data.data[0].message);
         })
         .catch((error) => {
             console.error('Error:', error);
