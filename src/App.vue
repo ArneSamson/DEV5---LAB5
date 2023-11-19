@@ -21,7 +21,7 @@
         </div>
         <div>
             <VideoDetails :description="newDescription"/>
-            <chat/>
+            <Chat/>
         </div>
     </div>
 </template>
