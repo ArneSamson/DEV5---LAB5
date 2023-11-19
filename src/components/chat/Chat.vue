@@ -1,14 +1,16 @@
 <template>
     <div>
-        <ul >
+        <ul v-if="allMessages.data.length > 0">
             <li v-for="m in allMessages.data">
                 <strong>{{ m.message.user }}</strong>
                 <div>
                     {{ m.message.text  }}
                 </div>
             </li>
-
         </ul>
+        <div v-else>
+            Loading messages...
+        </div>
     </div>
 
     <div>
@@ -36,16 +38,16 @@
                 message:{
                     user: 'tiktokuser',
                     text: message.value,
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                fetchData();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+                },
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            fetchData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         })
     }
 
