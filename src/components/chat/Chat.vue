@@ -1,7 +1,13 @@
 <template>
     <div>
         <ul >
-            <li v-for="m in allMessages.data">{{ m }}</li>
+            <li v-for="m in allMessages.data">
+                <strong>{{ m.user }}</strong>
+                <div>
+                    {{ m.text  }}
+                </div>
+            </li>
+
         </ul>
     </div>
 
@@ -15,8 +21,18 @@
     import { ref, reactive, onMounted} from 'vue';
 
     let message = ref("");
+
     let allMessages = reactive({
-        data: ["hey", "hello", "hi", "sup"],
+        data: {
+                user:{
+                    name: "user1",
+                    text: "Hello"
+                    },
+                user2:{
+                    name: "user2",
+                    text: "Hi"
+                    },
+            },
     });
 
     function sendMessage() {
@@ -24,6 +40,22 @@
             allMessages.data.push(message.value);
         }
     }
+
+    //get messages from https://dev5-lab4.onrender.com/api/v1/messages and add the user and the text to allMessages
+    onMounted(() => {
+        fetch('https://dev5-lab4.onrender.com/api/v1/messages')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.data);
+            allMessages.data = data.data[0].messages;
+            console.log(allMessages.data);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
+    });
+
 
 </script>
 
