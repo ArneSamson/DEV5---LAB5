@@ -2,9 +2,9 @@
     <div>
         <ul >
             <li v-for="m in allMessages.data">
-                <strong>{{ m.user }}</strong>
+                <strong>{{ m.message.user }}</strong>
                 <div>
-                    {{ m.text  }}
+                    {{ m.message.text  }}
                 </div>
             </li>
 
@@ -36,9 +36,7 @@
     });
 
     function sendMessage() {
-        if(message.value !== ""){
-            allMessages.data.push(message.value);
-        }
+        
     }
 
     //get messages from https://dev5-lab4.onrender.com/api/v1/messages and add the user and the text to allMessages
@@ -46,7 +44,6 @@
         fetch('https://dev5-lab4.onrender.com/api/v1/messages')
         .then(response => response.json())
         .then(data => {
-            console.log(data.data);
             allMessages.data = data.data[0].messages;
             console.log(allMessages.data);
         })
